@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- HikariCP 라이브러리를 이용한 데이터 소스 설정 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<description>이 빈의 설명</description>
+
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202110221034_high?TNS_ADMIN=/opt/OracleCloudWallet/ATP" />
+
+		<property name="username" value="ADMIN" />
+		<property name="password" value="Oracle12345!!!" />
+
+		<property name="maximumPoolSize" value="10" />
+		<property name="minimumIdle" value="2" />
+		<property name="idleTimeout" value="10000" />
+		<property name="connectionTimeout" value="1000" />
+		<property name="connectionTestQuery" value="SELECT 1 FROM dual" />
+		<property name="dataSourceJNDI" value="jdbc/HikariCP" />
+		<property name="poolName" value="*** HikariDataSource ***" />
+
+	</bean>
+
+	<!-- 데이터 소스 빈 클래스 설정 -->
+	<bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+
+		<constructor-arg ref="hikariConfig" />
+
+	</bean>
+
+</beans>
